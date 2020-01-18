@@ -1,7 +1,34 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const port = 5500
 
-app.get('/', (req, res) => res.send('Hello World!'))
+var user = [
+    { name: "Minh Nam" },
+    { name: "Van anh" }
+];
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.set('view engine', 'pug');
+app.set('views','./views');
+
+
+app.get('/', (req, res) => {
+    res.render('html/index', {
+        users: user
+    });
+
+})
+
+app.get('/search', (req, res) => {
+    var valInput = req.query.input;
+    var results = user.filter((user) => {
+        return user.name.indexOf(valInput) !== -1;
+    });
+
+    res.render('html/index', {
+        users: results
+    });
+})
+
+
+app.listen(port, () =>
+    console.log(`Example app listening on port ${port}!`));
