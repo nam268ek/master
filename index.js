@@ -1,5 +1,10 @@
 const express = require('express');
 const app = express();
+
+const bodyParser = require('body-parser')
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
 const port = 5500
 
 var user = [
@@ -29,6 +34,16 @@ app.get('/search', (req, res) => {
     });
 })
 
+app.get('/html/create', (req, res) => {
+    res.render('html/create');
+})
 
+app.post('/html/create', (req, res) => {
+    user.push(req.body);
+    res.render('html/users', {
+        users: user
+    })
+    res.redirect('/create');
+})
 app.listen(port, () =>
     console.log(`Example app listening on port ${port}!`));
