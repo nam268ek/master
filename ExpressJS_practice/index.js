@@ -6,9 +6,9 @@ app.set("view engine", "pug");
 app.set("views", "./views");
 
 var users = [
-    { id: 1, name: "NAM" },
-    { id: 2, name: "SON" },
-  ];
+  { id: 1, name: "NAM" },
+  { id: 2, name: "SON" },
+];
 //Bài 2 - Template engines
 app.get("/", function (req, res) {
   res.render("index", {
@@ -21,17 +21,17 @@ app.get("/user", function (req, res) {
   });
 });
 
-app.get('/user/search', function(req, res) {
-    var query = req.query.value;
-    var newArrUsers = users.filter(function(user) {
-        return user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-    });
-    
-    res.render('user/user',{
-        users: newArrUsers
+app.get("/user/search", function (req, res) {
+  var query = req.query.value;
+  var newArrUsers = users.filter(function (user) {
+    return user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+  });
+
+  res.render("user/user",{
+      users: newArrUsers, query
     });
 });
 
 app.listen(3456, function () {
-  console.log("Server listening on port" + port);
+  console.log("Server listening on port " + port);
 });

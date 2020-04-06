@@ -1,7 +1,8 @@
 h1 User
 form(action="user/search", method="GET")
-    input(type="text" name="value")
+    input(type="search" name="value" value=query)
     button Search
+       
 ul
     each user in users
         li= user.name
