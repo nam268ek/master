@@ -1,5 +1,6 @@
 h1 User
-form(action="user/search", method="GET")
+a(href="/user/create") Create
+form(action="/user/search", method="GET")
     input(type="search" name="value" value=query)
     button Search
        
