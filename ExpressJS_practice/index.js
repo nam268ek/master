@@ -1,6 +1,14 @@
 const express = require("express");
 const app = express();
 var bodyParser = require('body-parser');
+const low = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
+
+const adapter = new FileSync('db.json');
+const db = low(adapter);
+
+db.defaults({users: []}).write()
+var dbUser = db.get("users").value();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -8,10 +16,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "pug");
 app.set("views", "./views");
 
-var users = [
-  { id: 1, name: "NAM" },
-  { id: 2, name: "SON" },
-];
+// var users = [
+//   { id: 1, name: "NAM" },
+//   { id: 2, name: "SON" },
+// ];
 //Bài 2 - Template engines
 app.get("/", function (req, res) {
   res.render("index", {
@@ -21,13 +29,13 @@ app.get("/", function (req, res) {
 
 app.get("/user", function (req, res) {
   res.render("./user/user", {
-    users: users
+    users: dbUser
   });
 });
 
 app.get("/user/search", function (req, res) {
   var query = req.query.value;
-  var newArrUsers = users.filter(function (user) {
+  var newArrUsers = dbUser.filter(function (user) {
     return user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
   });
 
@@ -41,9 +49,10 @@ app.get("/user/create",function (req, res) {
 });
 
 app.post("/user/create", function (req, res) {
-  users.push(req.body);
+  db.get("users").push(req.body).write();
+  console.log(dbUser);
   res.redirect("/user");
 });
 app.listen(3456, function () {
-  console.log("Server listening on port ");
+  console.log("Server running... ");
 });
