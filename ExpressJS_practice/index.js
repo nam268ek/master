@@ -3,6 +3,7 @@ const app = express();
 var bodyParser = require('body-parser');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
+const shortid = require('shortid');
 
 const adapter = new FileSync('db.json');
 const db = low(adapter);
@@ -16,11 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "pug");
 app.set("views", "./views");
 
-// var users = [
-//   { id: 1, name: "NAM" },
-//   { id: 2, name: "SON" },
-// ];
-//Bài 2 - Template engines
 app.get("/", function (req, res) {
   res.render("index", {
     name: "Nam",
@@ -48,11 +44,21 @@ app.get("/user/create",function (req, res) {
   res.render('user/create');
 });
 
+app.get('/user/:id', function(req, res) {
+  var id = req.params.id;
+  var user = db.get('users').find({ id: id }).value();
+
+  res.render('user/view', {
+    users: user 
+  });
+});
+
 app.post("/user/create", function (req, res) {
+  req.body.id = shortid.generate();
   db.get("users").push(req.body).write();
-  console.log(dbUser);
   res.redirect("/user");
 });
+
 app.listen(3456, function () {
   console.log("Server running... ");
 });
