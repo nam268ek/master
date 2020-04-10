@@ -1,9 +1,22 @@
 
 extends ../user/layouts/common.pug
 block content
-    h1 Create
-    form(action="/user/create", method="POST")
-        label Name
-        input(type="text" name="name")
-        button Submit
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        a.navbar-brand(href='#') CodersX tokyo
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+            span.navbar-toggler-icon
+        #navbarSupportedContent.collapse.navbar-collapse
+            ul.navbar-nav.mr-auto
+    .container
+        h1 Create
+        if errors
+            each err in errors
+                .alert.alert-danger= err
+
+        form(action="/user/create", method="POST")
+            label(for='name') Name
+            input#name.form-control.w-25.p-3(type="text" name="name" value=name)
+            label(for='phone') Phone
+            input#phone.form-control.w-25.p-3(type="text" name="phone" value=phone)
+            button.btn.btn-primary.m-2 Submit
         
