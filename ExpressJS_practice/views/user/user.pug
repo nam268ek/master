@@ -1,27 +1,19 @@
 extends ../user/layouts/common.pug
 block content
-    nav.navbar.navbar-expand-lg.navbar-light.bg-light
-        a.navbar-brand(href='#') CodersX tokyo
-        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
-            span.navbar-toggler-icon
-        #navbarSupportedContent.collapse.navbar-collapse
-            ul.navbar-nav.mr-auto
-    .container.pt-5  
-        h1 User
-        .d-flex.align-items-center
-            a.btn.btn-primary(href="/user/create") Create
-            form.d-flex.m-2(action="/user/search", method="GET")
-                input.form-control(type="search" name="value" placeholder= 'Search...' value=query)
-                button.btn.btn-primary Search
-            
-        table.table
+    h1 User
+            .d-flex.align-items-center
+                a.btn.btn-primary(href="/user/create") Create
+                form.d-flex.m-2(action="/user/search", method="GET")
+                    input.form-control(type="search" name="value" placeholder= 'Search...' value=query)
+                    button.btn.btn-primary Search
+    table.table
+        tr
+            th Name
+            th Email
+            th View
+        each user in users
             tr
-                th Name
-                th Phone
-                th View
-            each user in users
-                tr
-                    td= user.name
-                    td=user.phone
-                    td 
-                     a.btn.btn-primary(href="/user/" + user.id) View
+                td= user.name
+                td=user.email
+                td 
+                    a.btn.btn-primary(href="/user/" + user.id) View

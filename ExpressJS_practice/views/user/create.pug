@@ -1,13 +1,6 @@
 
 extends ../user/layouts/common.pug
 block content
-    nav.navbar.navbar-expand-lg.navbar-light.bg-light
-        a.navbar-brand(href='#') CodersX tokyo
-        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
-            span.navbar-toggler-icon
-        #navbarSupportedContent.collapse.navbar-collapse
-            ul.navbar-nav.mr-auto
-    .container
         h1 Create
         if errors
             each err in errors
@@ -16,7 +9,9 @@ block content
         form(action="/user/create", method="POST")
             label(for='name') Name
             input#name.form-control.w-25.p-3(type="text" name="name" value=name)
-            label(for='phone') Phone
-            input#phone.form-control.w-25.p-3(type="text" name="phone" value=phone)
-            button.btn.btn-primary.m-2 Submit
+            label(for='email') Email
+            input#email.form-control.w-25.p-3(type="text" name="email" value=email)
+            label(for='pass') Password
+            input#pass.form-control.w-25.p-3(type="password" name="password" value=pass)
+            button.btn.btn-primary.m-2 Create
         
