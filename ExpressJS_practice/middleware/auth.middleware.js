@@ -1,16 +1,17 @@
-var db = require('../db');
+var db = require("../db");
 
-module.exports.requireAuth = function(req, res, next) {
+module.exports.requireAuth = function (req, res, next) {
+  if (!req.signedCookies.userId) {
+    res.redirect("/auth/login");
+    return;
+  }
+  var user = db.get("users").find({ id: req.signedCookies.userId }).value();
 
-    if( ! req.cookies.userId) {
-        res.redirect('/auth/login');
-        return;
-    }
-    var cookiesApply = db.get('users').find({ id: req.cookies.userId }).value();
+  if (!user) {
+    res.redirect("/auth/login");
+    return;
+  }
+  res.locals.user = user;
 
-    if( ! cookiesApply) {
-        res.redirect('/auth/login');
-        return;
-    }
-    next();
+  next();
 };
