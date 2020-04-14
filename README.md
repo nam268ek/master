@@ -20,3 +20,5 @@
 16. md5
 17. Signed Cookie
 18. Environment Variables
+19. Debug Node.js app
+20. Pagination (Phân trang)
