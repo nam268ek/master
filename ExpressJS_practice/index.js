@@ -4,11 +4,10 @@ const express = require("express");
 const app = express();
 var bodyParser = require("body-parser");
 var userRouter = require("./routes/user.route");
+var productsRouter = require('./routes/products.route');
 var authRouter = require("./routes/auth.route");
 var authMiddleware = require("./middleware/auth.middleware");
-var cookieParser = require("cookie-parser");
-
-
+var cookieParser = require("cookie-parser"); 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,6 +22,7 @@ app.get("/", function (req, res) {
   });
 });
 
+app.use("/products", productsRouter);
 app.use("/user", authMiddleware.requireAuth, userRouter);
 app.use("/auth", authRouter);
 
