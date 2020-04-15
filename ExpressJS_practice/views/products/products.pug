@@ -1,7 +1,40 @@
 extends ../user/layouts/common.pug
 block content
     h1 Products 
-    a.btn.btn-primary(href="/user/create") Create
+    nav.d-flex.justify-content-end(aria-label='Page navigation example')
+        ul.pagination
+            if current==1
+                li.page-item.disabled
+                    a.page-link(href='#') Previous
+                li.page-item.active
+                    a.page-link= current
+                        span.sr-only
+                li.page-item
+                    a.page-link(href='/products?page=' + nextPage)= nextPage
+                li.page-item
+                    a.page-link(href='/products?page=' + nextPage) Next
+            else if current==pageLimit
+                li.page-item
+                    a.page-link(href='/products?page=' + previous) Previous
+                li.page-item
+                    a.page-link(href='/products?page=' + previous, tabindex='-1')= previous
+                li.page-item.active
+                    a.page-link= current
+                        span.sr-only
+                li.page-item.disabled
+                    a.page-link(href='#') Next
+            else
+                li.page-item
+                    a.page-link(href='/products?page=' + previous) Previous
+                li.page-item
+                    a.page-link(href='/products?page=' + previous, tabindex='-1')= previous
+                li.page-item.active
+                    a.page-link= current
+                        span.sr-only
+                li.page-item
+                    a.page-link(href='/products?page=' + nextPage)= nextPage
+                li.page-item
+                    a.page-link(href='/products?page=' + nextPage) Next
 
     .mb-3.row
         each product in results
@@ -13,11 +46,4 @@ block content
                         h5.card-title= product.name
                         p.card-text= product.email
                         a.btn.btn-primary(href='#') View
-    nav(aria-label='Page navigation example')
-        ul.pagination
-                li.page-item
-                    a.page-link(href='#')= previous
-                li.page-item
-                    a.page-link(href='#')= current
-                li.page-item
-                    a.page-link(href='#')= nextPage
+    
