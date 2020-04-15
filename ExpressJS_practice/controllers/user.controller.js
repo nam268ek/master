@@ -3,6 +3,7 @@ const shortid = require("shortid");
 var dbUser = db.get("users").value();
 var md5 = require("md5");
 
+
 module.exports.index = function (req, res) {
   res.render("./user/user", {
     users: dbUser,
@@ -36,17 +37,17 @@ module.exports.userId = function (req, res, next) {
 
 module.exports.postCreate = function (req, res) {
   req.body.id = shortid.generate();
-  var name = req.body.name;
-  var email = req.body.email;
   var pass = req.body.password;
   var passMd5 = md5(pass);
+
   var error = [];
   var newUser = [
     {
-      name: name,
-      email: email,
+      id: req.body.id,
+      name: req.body.name,
+      email: req.body.email,
       password: passMd5,
-      id: req.body.id
+      file: req.file.path.split('\\').slice(1).join('/'),
     }
   ];
 

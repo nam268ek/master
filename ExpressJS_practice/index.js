@@ -9,9 +9,11 @@ var authRouter = require("./routes/auth.route");
 var authMiddleware = require("./middleware/auth.middleware");
 var cookieParser = require("cookie-parser"); 
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(express.static('public'));
 
 app.set("view engine", "pug");
 app.set("views", "./views");
