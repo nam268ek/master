@@ -4,19 +4,29 @@
       "name": "Minh Nam",
       "email": "namnguyenexe@gmail.com",
       "password": "202cb962ac59075b964b07152d234b70",
-      "id": "Q2ndKnWYI"
+      "id": "Q2ndKnWYI",
+      "file": "uploads/83f3b6f92e97c05317c0fae1b72609c4"
     },
     {
-      "name": "nam",
+      "id": "nPYzZqTMG",
+      "name": "namnguyenexe@gmail.com",
       "email": "namnguyenexe3@gmail.com",
-      "password": "81dc9bdb52d04dc20036dbd8313ed055",
-      "id": "pdvNplUFG"
+      "password": "4297f44b13955235245b2497399d7a93",
+      "file": "uploads/83f3b6f92e97c05317c0fae1b72609c4"
     },
     {
-      "name": "Duy",
-      "email": "hoang@gmail.com",
-      "password": "caf1a3dfb505ffed0d024130f58c5cfa",
-      "id": "uLuFLFFqI"
+      "id": "nPYzZqTMG",
+      "name": "namnguyenexe@gmail.com",
+      "email": "namnguyenexe3@gmail.com",
+      "password": "4297f44b13955235245b2497399d7a93",
+      "file": "uploads/83f3b6f92e97c05317c0fae1b72609c4"
+    },
+    {
+      "id": "nPYzZqTMG",
+      "name": "namnguyenexe@gmail.com",
+      "email": "namnguyenexe3@gmail.com",
+      "password": "4297f44b13955235245b2497399d7a93",
+      "file": "uploads/83f3b6f92e97c05317c0fae1b72609c4"
     }
   ],
   "products": [
