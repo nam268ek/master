@@ -8,11 +8,14 @@ block content
                     button.btn.btn-primary Search
     table.table
         tr
+            th.d-flex.justify-content-center Avatar
             th Name
             th Email
             th View
         each user in users
-            tr
+            tr  
+                td.d-flex.justify-content-center
+                    img(src= user.file width= 50)
                 td= user.name
                 td=user.email
                 td 

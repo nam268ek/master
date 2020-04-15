@@ -6,12 +6,17 @@ block content
             each err in errors
                 .alert.alert-danger= err
 
-        form(action="/user/create", method="POST")
-            label(for='name') Name
-            input#name.form-control.w-25.p-3(type="text" name="name" value=name)
-            label(for='email') Email
-            input#email.form-control.w-25.p-3(type="text" name="email" value=email)
-            label(for='pass') Password
-            input#pass.form-control.w-25.p-3(type="password" name="password" value=pass)
+        form(action="/user/create", method="POST", enctype="multipart/form-data")
+            .form-group
+                label(for='name') Name
+                input#name.form-control.w-25.p-3(type="text" name="name" value=name)
+            .form-group
+                label(for='email') Email
+                input#email.form-control.w-25.p-3(type="text" name="email" value=email)
+            .form-group
+                label(for='pass') Password
+                input#pass.form-control.w-25.p-3(type="password" name="password")
+            .form-group
+                label(for='file') File Upload
+                input#file.form-control-file.w-25.p-3(type="file" name="fileUpload" )
             button.btn.btn-primary.m-2 Create
-        
