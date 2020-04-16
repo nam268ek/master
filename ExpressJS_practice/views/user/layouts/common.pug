@@ -3,9 +3,21 @@ html
         
         link(rel="stylesheet",href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css")
     body
-        nav.navbar.navbar-dark.bg-dark
-            a.navbar-brand(href='/user') Practice ExpressJS
+        nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+            a.navbar-brand(href='#') Express
+            button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNavAltMarkup', aria-controls='navbarNavAltMarkup', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarNavAltMarkup.collapse.navbar-collapse
+                .navbar-nav
+                    a.nav-item.nav-link.active(href='/user')
+                        | Home 
+                        span.sr-only (current)
+                    a.nav-item.nav-link(href='/user') User
+                    a.nav-item.nav-link(href='/products') Products
+                    a.nav-item.nav-link(href='/cart') Cart
+                        
+
             if user
                 a.text-light= user.name
-        .container.pt-5
-            block content
+        .container.pt-3
+            block content   

@@ -330,5 +330,14 @@
       "email": "avaz1d@europa.eu",
       "images": "http://dummyimage.com/108x196.png/ff4444/ffffff"
     }
+  ],
+  "session": [
+    {
+      "sessionId": "2h1QfglzV",
+      "cart": {
+        "0d24e7f7-9486-4888-8c94-bce00c7e3752": 2,
+        "e541bb42-931f-44c8-9679-9723b748664c": 1
+      }
+    }
   ]
 }
