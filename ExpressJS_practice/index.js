@@ -1,19 +1,21 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const express = require("express");
 const app = express();
 var bodyParser = require("body-parser");
 var userRouter = require("./routes/user.route");
-var productsRouter = require('./routes/products.route');
+var productsRouter = require("./routes/products.route");
 var authRouter = require("./routes/auth.route");
 var authMiddleware = require("./middleware/auth.middleware");
-var cookieParser = require("cookie-parser"); 
-
+var sessionMiddleware = require("./middleware/session.middleware");
+var cookieParser = require("cookie-parser");
+var cartRouter = require("./routes/cart.route");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SESSION_SECRET));
-app.use(express.static('public'));
+app.use(sessionMiddleware.sessionId);
+app.use(express.static("public"));
 
 app.set("view engine", "pug");
 app.set("views", "./views");
@@ -24,7 +26,8 @@ app.get("/", function (req, res) {
   });
 });
 
-app.use("/products", productsRouter);
+app.use("/cart", cartRouter);
+app.use("/products", authMiddleware.requireAuth, productsRouter);
 app.use("/user", authMiddleware.requireAuth, userRouter);
 app.use("/auth", authRouter);
 
