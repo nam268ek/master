@@ -1,4 +1,5 @@
-const db = require("../db");
+
+var userModel = require('../models/user.model');
 var md5 = require("md5");
 
 module.exports.login = function (req, res) {
@@ -8,7 +9,8 @@ module.exports.login = function (req, res) {
 module.exports.postLogin = function (req, res) {
   var email = req.body.email;
   var pass = req.body.password;
-  var userLogin = db.get("users").find({ email: email }).value();
+  var hashedPassword = md5(pass); 
+  var userLogin = userModel.find({ email: email });
 
   if (!userLogin) {
     res.render("auth/login", {
@@ -17,7 +19,7 @@ module.exports.postLogin = function (req, res) {
     });
     return;
   }
-  var hashedPassword = md5(pass);
+
 
   if (userLogin.password !== hashedPassword) {
     res.render("auth/login", {

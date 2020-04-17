@@ -1,15 +1,17 @@
-const db = require("../db");
-var productsDb = db.get("products").value();
 
-module.exports.products = (req, res, next) => {
+var productsDb = require('../models/products.model');
+
+module.exports.products = async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 8;
-  const pageLimit = Math.floor(productsDb.length/limit);
+  const totalProduct = await productsDb.countDocuments();
+  const pageLimit = Math.floor(totalProduct/limit);
   var start = (page - 1) * limit;
   var end = page * limit;
   const results = {};
-
-  if (end < productsDb.length) {
+  var product = await productsDb.find().limit(limit).skip(start).exec();
+  
+  if (end < await productsDb.countDocuments()) {
     results.nextPage = {
       page: page + 1,
       limit: limit,
@@ -35,7 +37,7 @@ module.exports.products = (req, res, next) => {
   next();
 
   res.render('products/products', {
-    results: productsDb.slice(start, end),
+    results: product,
     nextPage: results.nextPage.page,
     current: page,
     previous: results.previous.page,

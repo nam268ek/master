@@ -1,21 +1,21 @@
-const db = require("../db");
-const shortid = require("shortid");
-var dbUser = db.get("users").value();
+var dbUser = require("../models/user.model");
 var md5 = require("md5");
 
+module.exports.index = async function (req, res) {
+  var user = await dbUser.find();
 
-module.exports.index = function (req, res) {
   res.render("./user/user", {
-    users: dbUser,
+    users: user,
   });
 };
 
-module.exports.search = function (req, res) {
+module.exports.search = async function (req, res) {
   query = req.query.value;
-  newArrUsers = dbUser.filter(function (user) {
-    return user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-  });
-
+  newArrUsers = await dbUser.find({name: query});
+  // newArrUsers.filter(function (user) {
+  //   return user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+  // });
+  // newArrUsers = await dbUser.find();
   res.render("user/user", {
     users: newArrUsers,
     query,
@@ -26,29 +26,25 @@ module.exports.create = function (req, res) {
   res.render("user/create");
 };
 
-module.exports.userId = function (req, res, next) {
+module.exports.userId = async function (req, res, next) {
   var id = req.params.id;
-  var user = db.get("users").find({ id: id }).value();
+  var user = await dbUser.findById(id);
   res.render("user/view", {
     users: user,
   });
 };
 
-module.exports.postCreate = function (req, res) {
-  req.body.id = shortid.generate();
+module.exports.postCreate = async function (req, res) {
   var pass = req.body.password;
   var passMd5 = md5(pass);
 
   var error = [];
-  var newUser = [
-    {
-      id: req.body.id,
-      name: req.body.name,
-      email: req.body.email,
-      password: passMd5,
-      file: req.file.path.split('\\').slice(1).join('/'),
-    }
-  ];
+  var newUser = {
+    name: req.body.name,
+    email: req.body.email,
+    password: passMd5,
+    file: req.file.path.split("\\").slice(1).join("/"),
+  };
 
   if (!req.body.name) {
     error.push("Error input name");
@@ -64,7 +60,8 @@ module.exports.postCreate = function (req, res) {
     });
     return;
   }
+  // Add newUser to the database with collection users
+  dbUser.insertMany(newUser);
 
-  db.get("users").push(newUser[0]).write();
   res.redirect("/user");
 };
